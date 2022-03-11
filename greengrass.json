@@ -1,0 +1,9 @@
+{
+  "region": "eu-west-1",
+  "author": "Me",
+  "bucket": "ggv2-components-eu-west-1",
+  "artifactsFolder": "artifacts",
+  "recipesFolder": "recipes",
+  "profile": "",
+  "autoIncrement": true
+}

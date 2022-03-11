@@ -1,0 +1,42 @@
+---
+RecipeFormatVersion: 2020-01-25
+ComponentName: helloworld
+ComponentVersion: 1.0.0
+ComponentDescription: 
+ComponentPublisher: Me
+ComponentDependencies: {}
+ComponentConfiguration:
+  DefaultConfiguration:
+    accessControl:
+      aws.greengrass.ipc.mqttproxy: 
+        policy_1:
+          policyDescription: My policy
+          operations:
+            - "*"
+          resources:
+            - "*"
+    CloudTopics: 
+      - test/send
+      - test/receive
+Manifests:
+  - Platform:
+      os: /linux|darwin/
+    Lifecycle:
+      Install: |-
+        python3 -m venv venv
+        . venv/bin/activate
+        pip3 install --upgrade pip
+        pip3 install wheel
+        pip3 install awsiotsdk sidekick-agent-python
+      Run: 
+        Script: |-
+          . venv/bin/activate
+          export SIDEKICK_APIKEY=700665f8-9d38-41f6-baa3-25006acf89a8 
+          export SIDEKICK_APPLICATION_NAME=test
+          export SIDEKICK_APPLICATION_STAGE=dev
+          export SIDEKICK_APPLICATION_VERSION=1.0.0
+          export SIDEKICK_DEBUG_ENABLE=True
+          python3 -u {artifacts:path}/pubsub.py
+    Artifacts:
+      - Uri: s3://_BUCKET_/helloworld/1.0.0/pubsub.py      
+  
